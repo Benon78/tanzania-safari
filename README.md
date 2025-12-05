@@ -15,9 +15,9 @@ A modern, responsive web application to explore **Tanzania safari tours**, desti
 
 > live demo link (https://local-tour.netlify.app/)
 
-![Homepage Screenshot](./screenshots/homepage.png)
-![Tours Screenshot](./screenshots/tours.png)
-![Destinations Screenshot](./screenshots/destinations.png)
+![Homepage Screenshot](./public/images//home.png)
+![Tours Screenshot](./public/images//tours.png)
+![Destinations Screenshot](./public/images//destinations.png)
 
 ---
 
@@ -71,7 +71,7 @@ tanzania_safari/
 
 - Clone the repository
 ```
-        git clone https://github.com/your-username/tanzania-safari.git
+        git clone https://github.com/Benon78/tanzania-safari.git
         cd tanzania-safari
 
 ```
