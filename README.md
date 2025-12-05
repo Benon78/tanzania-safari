@@ -13,7 +13,7 @@ A modern, responsive web application to explore **Tanzania safari tours**, desti
 
 ## 🌐 Live Demo
 
-<!-- > Add your live demo link here (Netlify, Vercel, or your server) -->
+> live demo link (https://local-tour.netlify.app/)
 
 ![Homepage Screenshot](./screenshots/homepage.png)
 ![Tours Screenshot](./screenshots/tours.png)
@@ -98,6 +98,6 @@ tanzania_safari/
 ## 📞 Contact
 
 - Maintainer: Benjamin William
-- Email: your-email@example.com
+- Email: wilbenjamin7@gmail.com
 - Phone: +255 764 422 305
 - GitHub: (https://github.com/Benon78)

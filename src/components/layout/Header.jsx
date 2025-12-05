@@ -22,7 +22,12 @@ export function Header() {
       <div className="container-wide">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2 ">
+           {/* <img
+                src="/images/logo-3.png"
+                alt="Safari guide"
+                className="rounded-xl w-20 object-cover"
+              /> */}
             <span className="text-xl md:text-2xl font-heading font-semibold text-primary">
               Tanzania Safari
             </span>
