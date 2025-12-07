@@ -9,7 +9,7 @@ import { toast } from '@/hooks/use-toast';
 import { Mail, Phone, MapPin, Clock, MessageCircle, Send } from 'lucide-react';
 import { sub } from 'date-fns';
 
-const GOOGLE_SCRIPT_URL = import.meta.env.VITE_CONTACT_SCRIPT_URL;
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_N33ucUiLDLs_pWEm4ncwDfP4kBFHszX36MBTIaGDqcWYal2gAmQ4y3X_aOaPVc0dVA/exec";
 
 
 const Contact = () => {
