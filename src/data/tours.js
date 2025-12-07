@@ -2,6 +2,7 @@ export const tours = [
   {
     id: '1',
     slug: '3-day-mikumi-safari',
+    destinationSlug: 'mikumi',
     title: '3-Day Mikumi Safari',
     category: 'safari',
     duration: '3 Days / 2 Nights',
@@ -25,6 +26,7 @@ export const tours = [
   {
     id: '2',
     slug: '5-day-serengeti-adventure',
+    destinationSlug: 'serengeti',
     title: '5-Day Serengeti Adventure',
     category: 'safari',
     duration: '5 Days / 4 Nights',
@@ -50,6 +52,7 @@ export const tours = [
   {
     id: '3',
     slug: 'zanzibar-beach-escape',
+    destinationSlug: 'zanzibar',
     title: 'Zanzibar Beach Escape',
     category: 'beach',
     duration: '4 Days / 3 Nights',
@@ -73,6 +76,7 @@ export const tours = [
   {
     id: '4',
     slug: 'kilimanjaro-day-hike',
+    destinationSlug: 'kilimanjaro',
     title: 'Kilimanjaro Day Hike',
     category: 'adventure',
     duration: '1 Day',
@@ -93,6 +97,7 @@ export const tours = [
   {
     id: '5',
     slug: 'maasai-village-experience',
+    destinationSlug: 'tarangire',
     title: 'Maasai Village Experience',
     category: 'cultural',
     duration: 'Half Day',
@@ -112,6 +117,7 @@ export const tours = [
   {
     id: '6',
     slug: 'ngorongoro-crater-tour',
+    destinationSlug: 'ngorongoro',
     title: 'Ngorongoro Crater Day Trip',
     category: 'daytrip',
     duration: '1 Day',
@@ -130,83 +136,83 @@ export const tours = [
     ],
   },
   {
-  id: '7',
-  slug: 'tarangire-day-safari',
-  title: 'Tarangire National Park Day Safari',
-  category: 'safari',
-  duration: '1 Day',
-  price: 320,
-  image: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800',
-  shortDescription: 'Famous for massive elephant herds and towering baobab trees.',
-  highlights: [
-    'Elephant herds',
-    'Baobab landscapes',
-    'Bird watching',
-    'Full-day game drive'
-  ],
-  itinerary: [
-    {
-      day: 1,
-      title: 'Tarangire Full-Day Safari',
-      description:
-        'Early departure from Arusha. Full-day game viewing in Tarangire. See elephants, lions, giraffes, and iconic baobabs.'
-    }
-  ],
-  inclusions: ['Transport', 'Park fees', 'Lunch', 'Guide', 'Drinks'],
-  exclusions: ['Tips', 'Personal expenses'],
-  gallery: [
-    'https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800',
-    'https://images.unsplash.com/photo-1531884070720-875c7622d4c6?w=800',
-  
-  ]
-}
-,
- {
-  id: '8',
-  slug: 'nyerere-selous-safari',
-  title: '3-Day Nyerere (Selous) Safari',
-  category: 'safari',
-  duration: '3 Days / 2 Nights',
-  price: 590,
-  image: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800',
-  shortDescription: 'Africa’s largest protected ecosystem — famous for boat safaris and river wildlife.',
-  highlights: [
-    'Boat safari on Rufiji River',
-    'Walking safari',
-    'Game drives',
-    'Hippos & crocodiles'
-  ],
-  itinerary: [
-    {
-      day: 1,
-      title: 'Transfer & Boat Safari',
-      description:
-        'Depart Dar. Arrive at Nyerere NP and enjoy an evening boat safari on the Rufiji River.'
-    },
-    {
-      day: 2,
-      title: 'Full-Day Game Drive',
-      description:
-        'Explore Nyerere NP with a full-day game drive — lions, elephants, wild dogs, buffalo.'
-    },
-    {
-      day: 3,
-      title: 'Walking Safari & Return',
-      description:
-        'Morning walking safari with armed ranger, then return to Dar es Salaam.'
-    }
-  ],
-  inclusions: ['Transport', 'Park fees', 'Meals', 'Accommodation', 'Guide'],
-  exclusions: ['Drinks', 'Tips', 'Personal expenses'],
-  gallery: [
-    'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800',
-    'https://images.unsplash.com/photo-1541417904950-b855846fe074?w=800'
-  ]
-}
-,
+    id: '7',
+    slug: 'tarangire-day-safari',
+    destinationSlug: 'tarangire',
+    title: 'Tarangire National Park Day Safari',
+    category: 'safari',
+    duration: '1 Day',
+    price: 320,
+    image: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800',
+    shortDescription: 'Famous for massive elephant herds and towering baobab trees.',
+    highlights: [
+      'Elephant herds',
+      'Baobab landscapes',
+      'Bird watching',
+      'Full-day game drive'
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: 'Tarangire Full-Day Safari',
+        description:
+          'Early departure from Arusha. Full-day game viewing in Tarangire. See elephants, lions, giraffes, and iconic baobabs.'
+      }
+    ],
+    inclusions: ['Transport', 'Park fees', 'Lunch', 'Guide', 'Drinks'],
+    exclusions: ['Tips', 'Personal expenses'],
+    gallery: [
+      'https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800',
+      'https://images.unsplash.com/photo-1531884070720-875c7622d4c6?w=800',
+    ]
+  },
+  {
+    id: '8',
+    slug: 'nyerere-selous-safari',
+    destinationSlug: 'selous',
+    title: '3-Day Nyerere (Selous) Safari',
+    category: 'safari',
+    duration: '3 Days / 2 Nights',
+    price: 590,
+    image: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800',
+    shortDescription: 'Africa’s largest protected ecosystem — famous for boat safaris and river wildlife.',
+    highlights: [
+      'Boat safari on Rufiji River',
+      'Walking safari',
+      'Game drives',
+      'Hippos & crocodiles'
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: 'Transfer & Boat Safari',
+        description:
+          'Depart Dar. Arrive at Nyerere NP and enjoy an evening boat safari on the Rufiji River.'
+      },
+      {
+        day: 2,
+        title: 'Full-Day Game Drive',
+        description:
+          'Explore Nyerere NP with a full-day game drive — lions, elephants, wild dogs, buffalo.'
+      },
+      {
+        day: 3,
+        title: 'Walking Safari & Return',
+        description:
+          'Morning walking safari with armed ranger, then return to Dar es Salaam.'
+      }
+    ],
+    inclusions: ['Transport', 'Park fees', 'Meals', 'Accommodation', 'Guide'],
+    exclusions: ['Drinks', 'Tips', 'Personal expenses'],
+    gallery: [
+      'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800',
+      'https://images.unsplash.com/photo-1541417904950-b855846fe074?w=800'
+    ]
+  },
   {
     id: '9',
     slug: 'pemba-island-retreat',
+    destinationSlug: 'pemba',
     title: 'Pemba Island Retreat',
     category: 'beach',
     duration: '5 Days / 4 Nights',
@@ -231,6 +237,7 @@ export const tours = [
   {
     id: '10',
     slug: 'ruaha-national-park-safari',
+    destinationSlug: 'ruaha',
     title: '4-Day Ruaha National Park Safari',
     category: 'safari',
     duration: '4 Days / 3 Nights',
@@ -251,80 +258,80 @@ export const tours = [
       'https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=800',
     ],
   },
- {
-  id: '11',
-  slug: 'mount-meru-trek',
-  title: '3-Day Mount Meru Trek',
-  category: 'adventure',
-  duration: '3 Days / 2 Nights',
-  price: 620,
- image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800',
-
-  shortDescription: "Climb Africa's 5th highest mountain with stunning views of Kilimanjaro.",
-  highlights: [
-    'Meru Crater',
-    'Lush rainforest',
-    'Wildlife on the trail',
-    'Summit sunrise'
-  ],
-  itinerary: [
-    {
-      day: 1,
-      title: 'Momella Gate → Miriakamba Hut',
-      description:
-        'Start the trek with ranger escort through forest rich with wildlife.'
-    },
-    {
-      day: 2,
-      title: 'Miriakamba → Saddle Hut',
-      description: 'Steep climb with scenic views of the crater and Ash Cone.'
-    },
-    {
-      day: 3,
-      title: 'Summit & Descend',
-      description: 'Early morning summit push. Descend back to Momella Gate.'
-    }
-  ],
-  inclusions: ['Park fees', 'Guide', 'Porters', 'Meals', 'Hut accommodation'],
-  exclusions: ['Gear rental', 'Tips', 'Travel insurance'],
-  gallery: [
-    'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800',
-    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800'
-  ]
-}
-,
   {
-  id: '12',
-  slug: 'pugu-kazimzimbwe-nature-hike',
-  title: 'Pugu Kazimzimbwe Nature Hike',
-  category: 'adventure',
-  duration: '1 Day',
-  price: 45,
-  image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800',
-  shortDescription: 'Explore Pugu Kazimzimbwe Forest with its caves, hills, and rich biodiversity — perfect for nature lovers.',
-  highlights: [
-    'Guided nature walk',
-    'Kazimzimbwe caves',
-    'Panoramic viewpoints',
-    'Bird watching',
-    'Forest biodiversity'
-  ],
-  itinerary: [
-    {
-      day: 1,
-      title: 'Forest Hike & Caves Exploration',
-      description:
-        'Depart Dar early morning. Start hiking through the forest trails, visit the Kazimzimbwe caves, enjoy the hilltop viewpoint, and return by afternoon.'
-    }
-  ],
-  inclusions: ['Transport', 'Guide', 'Entrance fees', 'Bottled water'],
-  exclusions: ['Meals', 'Personal expenses', 'Tips'],
-  gallery: [
-    'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800',
-    'https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?w=800',
-    'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800'
-  ]
-},
+    id: '11',
+    slug: 'mount-meru-trek',
+    destinationSlug: 'kilimanjaro',
+    title: '3-Day Mount Meru Trek',
+    category: 'adventure',
+    duration: '3 Days / 2 Nights',
+    price: 620,
+    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800',
+    shortDescription: "Climb Africa's 5th highest mountain with stunning views of Kilimanjaro.",
+    highlights: [
+      'Meru Crater',
+      'Lush rainforest',
+      'Wildlife on the trail',
+      'Summit sunrise'
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: 'Momella Gate → Miriakamba Hut',
+        description:
+          'Start the trek with ranger escort through forest rich with wildlife.'
+      },
+      {
+        day: 2,
+        title: 'Miriakamba → Saddle Hut',
+        description: 'Steep climb with scenic views of the crater and Ash Cone.'
+      },
+      {
+        day: 3,
+        title: 'Summit & Descend',
+        description: 'Early morning summit push. Descend back to Momella Gate.'
+      }
+    ],
+    inclusions: ['Park fees', 'Guide', 'Porters', 'Meals', 'Hut accommodation'],
+    exclusions: ['Gear rental', 'Tips', 'Travel insurance'],
+    gallery: [
+      'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800'
+    ]
+  },
+  {
+    id: '12',
+    slug: 'pugu-kazimzimbwe-nature-hike',
+    destinationSlug: 'pugu-kazimzimbwe',
+    title: 'Pugu Kazimzimbwe Nature Hike',
+    category: 'adventure',
+    duration: '1 Day',
+    price: 45,
+    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800',
+    shortDescription: 'Explore Pugu Kazimzimbwe Forest with its caves, hills, and rich biodiversity — perfect for nature lovers.',
+    highlights: [
+      'Guided nature walk',
+      'Kazimzimbwe caves',
+      'Panoramic viewpoints',
+      'Bird watching',
+      'Forest biodiversity'
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: 'Forest Hike & Caves Exploration',
+        description:
+          'Depart Dar early morning. Start hiking through the forest trails, visit the Kazimzimbwe caves, enjoy the hilltop viewpoint, and return by afternoon.'
+      }
+    ],
+    inclusions: ['Transport', 'Guide', 'Entrance fees', 'Bottled water'],
+    exclusions: ['Meals', 'Personal expenses', 'Tips'],
+    gallery: [
+      'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800',
+      'https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?w=800',
+      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800'
+    ]
+  },
 ];
 
 export const destinations = [

@@ -7,23 +7,72 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
 import { Mail, Phone, MapPin, Clock, MessageCircle, Send } from 'lucide-react';
+import { sub } from 'date-fns';
+
+const GOOGLE_SCRIPT_URL = import.meta.env.VITE_CONTACT_SCRIPT_URL;
+
 
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+ 
+  const [isLoading, setIsLoading] = useState(false);
 
+  // -----------------
+  // Handle SUBMIT
+  // -----------------
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    setIsLoading(true);
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    const form = e.target;
 
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll respond within 24 hours.",
-    });
+    const data = {
+      Name: form.name.value,
+      Email: form.email.value,
+      Phone: form.phone.value,
+      Subject: form.subject?.value || "",
+      Dates: form.dates.value,
+      Travelers: form.travelers?.value || "",
+      Message: form.message.value,
+      TimeStamp: new Date().toLocaleString(),
+      formType: 'inquiry'
+    };
 
-    setIsSubmitting(false);
-    e.target.reset();
+    try {
+      const res = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams(data).toString(),
+      });
+
+      const json = await res.json();
+
+      if (json.success) {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for contacting us. We'll respond within 24 hours.",
+        }); 
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to send message. Try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Network Error",
+        description: "Unable to reach the server.",
+        variant: "destructive",
+      });
+
+    }
+
+    setIsLoading(false);
+    // RESET FORM
+    form.reset();
   };
 
   return (
@@ -140,7 +189,7 @@ const Contact = () => {
                       <Label htmlFor="subject">Subject</Label>
                       <Select name="subject">
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a subject" />
+                          <SelectValue  placeholder="Select a subject" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="inquiry">General Inquiry</SelectItem>
@@ -160,7 +209,7 @@ const Contact = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="travelers">Number of Travelers</Label>
-                      <Select name="travelers">
+                      <Select  name="travelers">
                         <SelectTrigger>
                           <SelectValue placeholder="Select group size" />
                         </SelectTrigger>
@@ -186,8 +235,8 @@ const Contact = () => {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-auto">
-                    {isSubmitting ? 'Sending...' : <>
+                  <Button type="submit" size="lg" disabled={isLoading} className="w-full sm:w-auto">
+                    {isLoading ? 'Sending...' : <>
                       <Send className="h-4 w-4" /> Send Message
                     </>}
                   </Button>

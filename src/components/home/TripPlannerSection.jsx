@@ -7,23 +7,67 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from '@/hooks/use-toast';
 import { Send } from 'lucide-react';
 
+const GOOGLE_SCRIPT_URL = import.meta.env.VITE_TRIP_SCRIPT_URL;
+
 export function TripPlannerSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+     const form = e.target;
+
+    const data = {
+      Name: form.name.value,
+      Email: form.email.value,
+      TourType: form.tourType.value,
+      Budget: form.budget?.value || "",
+      Dates: form.dates.value,
+      Phone: form.phone.value,
+      Travelers: form.travelers?.value || "",
+      Message: form.message.value,
+      TimeStamp: new Date().toLocaleString(),
+      formType: 'trip'
+    };
     
     // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Request Received!",
-      description: "We'll get back to you within 24 hours with a custom itinerary.",
-    });
+    try {
+      const resp = await fetch(GOOGLE_SCRIPT_URL,{
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams(data).toString(),
+      });
+
+      const json = await resp.json()
+
+      if (json.success) {
+          toast({
+            title: "Request Received!",
+            description: "We'll get back to you within 24 hours with a custom itinerary.",
+          });
+        }else {
+        toast({
+          title: "Error",
+          description: "Failed to send message. Try again.",
+          variant: "destructive",
+        });
+      }
+
+    } catch (error) {
+      toast({
+        title: "Network Error",
+        description: "Unable to reach the server.",
+        variant: "destructive",
+      });
+    }
     
     setIsSubmitting(false);
-    e.target.reset();
+    // RESET FORM
+    form.reset();
   };
 
   return (
@@ -49,6 +93,11 @@ export function TripPlannerSection() {
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
                 <Input id="email" name="email" type="email" placeholder="john@example.com" required />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number</Label>
+                <Input id="phone" name="phone" type="tel" placeholder="+1 234 567 890" />
               </div>
               
               <div className="space-y-2">

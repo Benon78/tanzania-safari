@@ -10,7 +10,7 @@ const PrivacyPolicy = () => {
             Privacy Policy
           </h1>
           <p className="text-primary-foreground/80 max-w-2xl mx-auto">
-            Your privacy is important to us. This page outlines how we handle your information.
+            Your privacy is important to us. This page explains how we handle the information you share with us.
           </p>
         </div>
       </section>
@@ -18,42 +18,76 @@ const PrivacyPolicy = () => {
       {/* Content */}
       <section className="section-padding">
         <div className="container-wide max-w-4xl mx-auto space-y-8">
+
+          {/* How We Operate */}
           <div className="bg-card p-8 rounded-xl shadow-elevated">
-            <h2 className="text-2xl font-heading font-semibold mb-4">Information Collection</h2>
+            <h2 className="text-2xl font-heading font-semibold mb-4">How Our Booking System Works</h2>
             <p className="text-muted-foreground leading-relaxed">
-              We collect information you provide when you book tours or contact us. This includes your name, email, phone number, and travel preferences.
+              We do <strong>not</strong> require user accounts or logins on this website.  
+              All bookings and communication—including confirmations, updates, and support—are done 
+              <strong> only through WhatsApp and Email</strong>.  
+              No booking history or personal dashboard exists on the website.
             </p>
           </div>
 
+          {/* Information Collection */}
           <div className="bg-card p-8 rounded-xl shadow-elevated">
-            <h2 className="text-2xl font-heading font-semibold mb-4">Use of Information</h2>
+            <h2 className="text-2xl font-heading font-semibold mb-4">Information We Collect</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Your information is used to provide our services, communicate updates, improve our offerings, and ensure your experience is seamless.
+              When you contact us or request a booking, you may voluntarily provide:
+              <ul className="list-disc ml-6 mt-2 space-y-1">
+                <li>Name</li>
+                <li>Email address</li>
+                <li>Phone number (for WhatsApp communication)</li>
+                <li>Tour preferences or travel details</li>
+              </ul>
+              We do not collect passwords, payment information, or any sensitive personal data.
             </p>
           </div>
 
+          {/* Use of Information */}
+          <div className="bg-card p-8 rounded-xl shadow-elevated">
+            <h2 className="text-2xl font-heading font-semibold mb-4">How We Use Your Information</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              We use the information you provide solely to:
+              <ul className="list-disc ml-6 mt-2 space-y-1">
+                <li>Process and confirm your booking</li>
+                <li>Communicate through WhatsApp or Email</li>
+                <li>Provide tour updates or travel details</li>
+              </ul>
+              We do not create user accounts or store your data for long-term use.
+            </p>
+          </div>
+
+          {/* Data Security */}
           <div className="bg-card p-8 rounded-xl shadow-elevated">
             <h2 className="text-2xl font-heading font-semibold mb-4">Data Security</h2>
             <p className="text-muted-foreground leading-relaxed">
-              We employ industry-standard security measures to protect your information and never share your data with third parties without consent.
+              Information shared through the booking form is transmitted securely.  
+              We never sell, rent, or share your personal information with third parties without your consent.
             </p>
           </div>
 
+          {/* Cookies */}
           <div className="bg-card p-8 rounded-xl shadow-elevated">
             <h2 className="text-2xl font-heading font-semibold mb-4">Cookies</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Our website uses cookies to enhance your experience. You can manage cookies through your browser settings.
+              Our website may use cookies to improve performance and user experience.  
+              Cookies do not collect personal information and can be disabled through your browser settings.
             </p>
           </div>
 
+          {/* Contact */}
           <div className="bg-card p-8 rounded-xl shadow-elevated">
             <h2 className="text-2xl font-heading font-semibold mb-4">Contact Us</h2>
             <p className="text-muted-foreground leading-relaxed">
-              If you have questions regarding this policy, please contact us at: <br/>
-              <strong>Email:</strong> info@tanzaniasafari.com <br/>
-              <strong>Phone:</strong> +255 764 422 305
+              If you have questions regarding this Privacy Policy, please reach out:
+              <br/><br/>
+              <strong>Email:</strong> info@tanzaniasafari.com<br/>
+              <strong>Phone / WhatsApp:</strong> +255 764 422 305
             </p>
           </div>
+
         </div>
       </section>
     </Layout>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { destinations } from '@/data/tours';
+import { destinations, tours } from '@/data/tours';
 import { Button } from '@/components/ui/button';
 
 export function DestinationsSection() {
@@ -16,8 +16,10 @@ export function DestinationsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {destinations.slice(0,4).map((destination, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {destinations.slice(0,4).map((destination, index) => {
+            const toursCount = tours.filter(t => t.destinationSlug === destination.slug).length;
+            return (
             <Link
               key={destination.slug}
               to={`/destinations#${destination.slug}`}
@@ -34,15 +36,16 @@ export function DestinationsSection() {
                 <h3 className="text-xl font-heading font-semibold text-background mb-1">
                   {destination.name}
                 </h3>
-                <p className="text-white/70 text-sm mb-3">
+                <p className="text-white/70 text-sm mb-1">
                   {destination.description}
                 </p>
+                <p className="text-white/60 text-sm mb-3">{toursCount} tour{toursCount !== 1 ? 's' : ''} available</p>
                 <span className="inline-flex items-center gap-1 text-golden text-sm font-medium group-hover:gap-2 transition-all">
                   Explore <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
             </Link>
-          ))}
+          )})}
         </div>
 
         <div className="text-center mt-12">

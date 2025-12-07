@@ -37,7 +37,10 @@ const router = createBrowserRouter(createRoutesFromElements(
               <Route path="/tours/:slug" element={<TourDetail />}  errorElement={<ErrorElement/>}/>
               <Route path="/travel-info" element={<TravelInfo />}  errorElement={<ErrorElement/>}/>
               <Route path="/about" element={<About />}  errorElement={<ErrorElement/>}/>
-              <Route path="/contact" element={<Contact />}  errorElement={<ErrorElement/>}/>
+              <Route path="/contact" 
+                  element={<Contact />} 
+                  errorElement={<ErrorElement/>}
+              />
               <Route path="/privacy" element={<PrivacyPolicy/>} errorElement={<ErrorElement/>}/>
               <Route path="/terms" element={<TermsOfService/>} errorElement={<ErrorElement/>}/>
               <Route path="/auth" element={<Auth />}

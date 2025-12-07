@@ -212,6 +212,24 @@
 
   .hover\:text-primary:hover { color: hsl(var(--primary) / 1); }
   .hover\:bg-accent:hover { background-color: hsl(var(--accent) / 1); }
+
+  /* Switch fallback styles: ensure visible track colors when Tailwind didn't emit utilities */
+  .switch-fallback[data-state="checked"] {
+    background-color: hsl(var(--primary) / 1);
+    border-color: transparent;
+  }
+  .switch-fallback[data-state="unchecked"] {
+    background-color: hsl(var(--input) / 1);
+    border-color: transparent;
+  }
+  /* Thumb fallback (the thumb uses bg-background by default) */
+  .switch-fallback > * {
+    background-color: hsl(var(--background) / 1);
+  }
+  /* Make the switch thumb ivory/white when checked for better contrast */
+  .switch-fallback[data-state="checked"] > * {
+    background-color: hsl(var(--ivory) / 1);
+  }
 }
 
 @layer utilities {

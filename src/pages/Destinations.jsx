@@ -1,5 +1,5 @@
 import { Layout } from '@/components/layout/Layout';
-import { destinations } from '@/data/tours';
+import { destinations, tours } from '@/data/tours';
 
 const Destinations = () => {
   return (
@@ -45,7 +45,7 @@ const Destinations = () => {
                       {destination.name}
                     </h2>
 
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                    <p className="text-muted-foreground mb-2 leading-relaxed">
                       {destination.name === 'Serengeti' &&
                         "The Serengeti is Tanzania's most iconic destination, home to the Great Migration where over two million wildebeest, zebras, and gazelles traverse the endless plains. Experience unparalleled wildlife viewing with opportunities to spot all of the Big Five in their natural habitat."
                       }
@@ -86,6 +86,7 @@ const Destinations = () => {
                         "Nyerere National Park (formerly Selous) is one of Africa’s largest protected areas, offering river safaris, diverse wildlife, and lush wetlands. It is an excellent destination for elephants, lions, hippos, and wild dogs."
                       }                     
                     </p>
+                    <p className="text-sm text-muted-foreground mb-4">{tours.filter(t => t.destinationSlug === destination.slug).length} tour{tours.filter(t => t.destinationSlug === destination.slug).length !== 1 ? 's' : ''} available</p>
 
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       {destination.name === 'Serengeti' && (
