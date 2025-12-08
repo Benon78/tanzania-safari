@@ -26,6 +26,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import Bookings from "./pages/admin/Bookings";
 import DestinationsAdmin from "./pages/admin/Destinations";
+import ToursAdmin from "./pages/admin/Tours";
 
 
 const queryClient = new QueryClient();
@@ -50,6 +51,7 @@ const router = createBrowserRouter(createRoutesFromElements(
                 <Route index element={<Dashboard />} errorElement={<ErrorElement/>}/>
                 <Route path="bookings" element={<Bookings />} errorElement={<ErrorElement/>}/>
                 <Route path="destinations" element={<DestinationsAdmin />} errorElement={<ErrorElement/>} />
+                <Route path="tours" element={<ToursAdmin />} errorElement={<ErrorElement/>} />
               </Route>
               <Route path="*" element={<NotFound />} />
           </Route>

@@ -104,9 +104,9 @@ const Contact = () => {
 
               <div className="space-y-6">
                 {[
-                  { icon: Phone, title: 'Phone', value: '+255 764 422 305', href: 'tel:+255764422305' },
-                  { icon: MessageCircle, title: 'WhatsApp', value: '+255 764 422 305', href: 'https://wa.me/255764422305' },
-                  { icon: Mail, title: 'Email', value: 'info@tanzaniasafari.com', href: 'mailto:info@tanzaniasafari.com' },
+                  { icon: Phone, title: 'Phone', value: '+255 742 924 355', href: 'tel:+255764422305' },
+                  { icon: MessageCircle, title: 'WhatsApp', value: '+255 742 924 355', href: 'https://wa.me/255742924355' },
+                  { icon: Mail, title: 'Email', value: 'info@neyahadventure.com', href: 'mailto:info@neyahadventure.com' },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -152,7 +152,7 @@ const Contact = () => {
               <div className="pt-6">
                 <Button asChild variant="whatsapp" size="lg" className="w-full">
                   <a 
-                    href="https://wa.me/255764422305?text=Hello!%20I'm%20interested%20in%20booking%20a%20safari."
+                    href="https://wa.me/255742924355?text=Hello!%20I'm%20interested%20in%20booking%20a%20safari."
                     target="_blank"
                     rel="noopener noreferrer"
                   >

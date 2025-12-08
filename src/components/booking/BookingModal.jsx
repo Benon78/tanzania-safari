@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { CalendarIcon, Users, Minus, Plus, MessageCircle, Send } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Calendar } from "@/components/ui/calendar";
-
+import { Calendar } from '@/components/ui/calendar';
 import {
   Dialog,
   DialogContent,
@@ -23,7 +23,7 @@ import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 export function BookingModal({ tour, isOpen, onClose }) {
-  const [startDate, setStartDate] = useState();
+  const [startDate, setStartDate] = useState(null);
   const [travelers, setTravelers] = useState(2);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -47,7 +47,7 @@ export function BookingModal({ tour, isOpen, onClose }) {
         description: "Choose your preferred travel date to continue.",
         variant: "destructive",
       });
-      return;
+      return; 
     }
 
     if (!name.trim() || !email.trim()) {
@@ -61,27 +61,49 @@ export function BookingModal({ tour, isOpen, onClose }) {
 
     setIsSubmitting(true);
 
-    // Simulate submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    const { error } = await supabase.from('booking_inquiries').insert({
+      tour_id: tour.slug,
+      tour_name: tour.title,
+      customer_name: name.trim(),
+      customer_email: email.trim(),
+      customer_phone: phone.trim() || null,
+      travel_date: format(startDate, 'yyyy-MM-dd'),
+      travelers,
+      special_requests: notes.trim() || null,
+      total_price: totalPrice,
+      status: 'pending',
+    });
 
     setIsSubmitting(false);
+
+    if (error) {
+      toast({
+        title: "Submission failed",
+        description: "Please try again or contact us via WhatsApp.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSuccess(true);
   };
 
   const handleWhatsAppBooking = () => {
-    const message = `Hi! I'd like to book the "${tour.title}" tour.\n\n` +
+    const message = encodeURIComponent(
+      `Hi! I'd like to book the "${tour.title}" tour.\n\n` +
       `Date: ${startDate ? format(startDate, 'PPP') : 'Not selected'}\n` +
       `Travelers: ${travelers}\n` +
       `Total: $${totalPrice}\n\n` +
       `Name: ${name}\n` +
       `Email: ${email}\n` +
       `Phone: ${phone || 'Not provided'}\n\n` +
-      `Notes: ${notes || 'None'}`;
-    window.open(`https://wa.me/255764422305?text=${encodeURIComponent(message)}`, '_blank');
+      `Notes: ${notes || 'None'}`
+    );
+    window.open(`https://wa.me/255742924355?text=${message}`, '_blank');
   };
 
   const resetForm = () => {
-    setStartDate(undefined);
+    setStartDate(null);
     setTravelers(2);
     setName('');
     setEmail('');
@@ -246,7 +268,7 @@ export function BookingModal({ tour, isOpen, onClose }) {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+255 764 422 305"
+                  placeholder="+1 234 567 890"
                 />
               </div>
             </div>

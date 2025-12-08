@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
-import { tours } from '@/data/tours';
 import { TourCard } from '@/components/tours/TourCard';
 import { BookingModal } from '@/components/booking/BookingModal';
+import { useTours } from '@/hooks/useTours';
 
 const categories = [
   { id: 'all', name: 'All Tours' },
   { id: 'safari', name: 'Safari Tours' },
-  { id: 'beach', name: 'Zanzibar & Beach' },
-  { id: 'daytrip', name: 'Day Trips' },
+  { id: 'zanzibar', name: 'Zanzibar & Beach' },
+  { id: 'day-trip', name: 'Day Trips' },
   { id: 'cultural', name: 'Cultural Tours' },
   { id: 'adventure', name: 'Adventure & Trekking' },
 ];
@@ -17,10 +17,11 @@ const categories = [
 const Tours = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedTour, setSelectedTour] = useState(null);
+  const { data: tours = [], isLoading } = useTours();
 
   const filteredTours = activeCategory === 'all' 
     ? tours 
-    : tours.filter(tour => tour.category === activeCategory); 
+    : tours.filter(tour => tour.category === activeCategory);
 
   return (
     <Layout>
@@ -58,21 +59,29 @@ const Tours = () => {
       {/* Tours Grid */}
       <section className="section-padding">
         <div className="container-wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredTours.map((tour, index) => (
-              <TourCard 
-                key={tour.id}
-                tour={tour}
-                index={index}
-                onBook={setSelectedTour}
-              />
-            ))}
-          </div>
-
-          {filteredTours.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground">No tours found in this category.</p>
+          {isLoading ? (
+            <div className="flex items-center justify-center py-16">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredTours.map((tour, index) => (
+                  <TourCard 
+                    key={tour.id}
+                    tour={tour}
+                    index={index}
+                    onBook={setSelectedTour}
+                  />
+                ))}
+              </div>
+
+              {filteredTours.length === 0 && (
+                <div className="text-center py-16">
+                  <p className="text-muted-foreground">No tours found in this category.</p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>

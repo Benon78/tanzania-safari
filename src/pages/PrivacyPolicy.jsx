@@ -83,8 +83,8 @@ const PrivacyPolicy = () => {
             <p className="text-muted-foreground leading-relaxed">
               If you have questions regarding this Privacy Policy, please reach out:
               <br/><br/>
-              <strong>Email:</strong> info@tanzaniasafari.com<br/>
-              <strong>Phone / WhatsApp:</strong> +255 764 422 305
+              <strong>Email:</strong> info@neyahadventure.com<br/>
+              <strong>Phone / WhatsApp:</strong> +255 742 924 355
             </p>
           </div>
 

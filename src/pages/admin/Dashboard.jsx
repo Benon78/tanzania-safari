@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookOpen, MapPin, Clock, CheckCircle } from 'lucide-react';
 
@@ -19,38 +20,21 @@ export default function Dashboard() {
   }, []);
 
   const fetchDashboardData = async () => {
-    // -------------------------------
-    // TEMP MOCK DATA (Replace later)
-    // -------------------------------
+    const [bookingsRes, destinationsRes] = await Promise.all([
+      supabase
+        .from('booking_inquiries')
+        .select('*')
+        .order('created_at', { ascending: false }),
+      supabase.from('destinations').select('id'),
+    ]);
 
-    const bookings = [
-      {
-        id: 1,
-        customer_name: "John Doe",
-        tour_name: "Serengeti Safari",
-        status: "pending",
-        created_at: new Date().toISOString(),
-      },
-      {
-        id: 2,
-        customer_name: "Aisha Kamau",
-        tour_name: "Zanzibar Beach Holiday",
-        status: "confirmed",
-        created_at: new Date().toISOString(),
-      },
-    ];
-
-    const destinations = [
-      { id: 1 },
-      { id: 2 },
-      { id: 3 },
-    ];
+    const bookings = bookingsRes.data || [];
 
     setStats({
       totalBookings: bookings.length,
       pendingBookings: bookings.filter(b => b.status === 'pending').length,
       confirmedBookings: bookings.filter(b => b.status === 'confirmed').length,
-      totalDestinations: destinations.length,
+      totalDestinations: destinationsRes.data?.length || 0,
     });
 
     setRecentBookings(bookings.slice(0, 5));
@@ -74,7 +58,6 @@ export default function Dashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Total Bookings</CardTitle>
@@ -135,12 +118,14 @@ export default function Dashboard() {
           ) : (
             <div className="space-y-4">
               {recentBookings.map((booking) => (
-                <div key={booking.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                <div
+                  key={booking.id}
+                  className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
+                >
                   <div>
                     <p className="font-medium">{booking.customer_name}</p>
                     <p className="text-sm text-muted-foreground">{booking.tour_name}</p>
                   </div>
-
                   <div className="text-right">
                     <span
                       className={`inline-block px-2 py-1 text-xs rounded-full ${
@@ -155,7 +140,6 @@ export default function Dashboard() {
                     >
                       {booking.status}
                     </span>
-
                     <p className="text-xs text-muted-foreground mt-1">
                       {new Date(booking.created_at).toLocaleDateString()}
                     </p>

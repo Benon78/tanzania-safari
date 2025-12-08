@@ -10,15 +10,18 @@ import {
   MapPin,
   LogOut,
   Menu,
+  Map
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/admin/bookings", label: "Bookings", icon: BookOpen },
-  { to: "/admin/destinations", label: "Destinations", icon: MapPin },
+  { to: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/admin/bookings', label: 'Bookings', icon: BookOpen },
+  { to: '/admin/tours', label: 'Tours', icon: Map },
+  { to: '/admin/destinations', label: 'Destinations', icon: MapPin },
 ];
+
 
 function NavItem({ to, label, icon: Icon, onClick }) {
   const location = useLocation();
@@ -57,14 +60,14 @@ export default function AdminLayout() {
       toast({
         title: 'Access Denied',
         description: 'You do not have admin access.',
-        variant: 'destructive',
+        // variant: 'destructive',
       });
       navigate('/', { replace: true });
     }
   }, [user, isAdmin, isLoading, navigate]);
 
   const handleSignOut = async () => {
-    signOut(); // Frontend only
+    await signOut(); 
     navigate("/auth");
   };
 
@@ -85,7 +88,7 @@ export default function AdminLayout() {
       <div className="p-4 border-b">
         <Link to="/" className="flex items-center gap-2 font-heading font-bold text-lg">
           <Compass className="h-6 w-6 text-primary" />
-          Tanzania Tours
+          Nayah Adventure
         </Link>
         <p className="text-xs text-muted-foreground mt-1">Admin Dashboard</p>
       </div>

@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div>
-            <h3 className="font-heading text-2xl mb-4">Tanzania Safari</h3>
+            <h3 className="font-heading text-2xl mb-4">NEYAH ADVENTURE</h3>
             <p className="text-background/70 mb-6">
               Authentic Tanzania tours guided by local experts. Creating unforgettable safari experiences since 2010.
             </p>
@@ -60,13 +60,13 @@ export function Footer() {
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-golden flex-shrink-0" />
                 <a href="tel:+255764422305" className="text-background/70 hover:text-golden transition-colors">
-                  +255 764 422 305
+                  +255 742 924 355
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-golden flex-shrink-0" />
                 <a href="mailto:info@tanzaniasafari.com" className="text-background/70 hover:text-golden transition-colors">
-                  info@tanzaniasafari.com
+                  info@neyahadventure.com
                 </a>
               </li>
             </ul>
@@ -75,7 +75,7 @@ export function Footer() {
 
         <div className="border-t border-background/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-background/60 text-sm">
-            © {new Date().getFullYear()} Tanzania Safari Tours. All rights reserved.
+            © {new Date().getFullYear()} Neyah Adventure. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
             <Link to="/privacy" className="text-background/60 hover:text-primary transition-colors">Privacy Policy</Link>

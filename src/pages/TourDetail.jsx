@@ -3,13 +3,23 @@ import { useParams, Link } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Clock, Check, X, MapPin, MessageCircle, Calendar } from 'lucide-react';
-import { tours } from '@/data/tours';
+import { useTour } from '@/hooks/useTours';
 import { BookingModal } from '@/components/booking/BookingModal';
 
 const TourDetail = () => {
   const { slug } = useParams();
-  const tour = tours.find(t => t.slug === slug);
+  const { data: tour, isLoading } = useTour(slug);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="section-padding flex items-center justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      </Layout>
+    );
+  }
 
   if (!tour) {
     return (
@@ -26,12 +36,18 @@ const TourDetail = () => {
 
   const whatsappMessage = encodeURIComponent(`Hi! I'm interested in the "${tour.title}" tour. Can you provide more information?`);
 
+  const highlights = tour.highlights || [];
+  const itinerary = tour.itinerary || [];
+  const inclusions = tour.inclusions || [];
+  const exclusions = tour.exclusions || [];
+  const gallery = tour.gallery || [];
+
   return (
     <Layout>
       {/* Hero Image */}
       <section className="relative h-[50vh] md:h-[60vh]">
         <img
-          src={tour.image}
+          src={tour.image || '/images/placeholder.svg'}
           alt={tour.title}
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -70,67 +86,77 @@ const TourDetail = () => {
               </div>
 
               {/* Highlights */}
-              <div>
-                <h2 className="text-2xl font-heading font-semibold mb-4">Highlights</h2>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {tour.highlights.map((highlight, index) => (
-                    <div key={index} className="flex items-start gap-3 p-4 bg-muted rounded-lg">
-                      <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>{highlight}</span>
-                    </div>
-                  ))}
+              {highlights.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-heading font-semibold mb-4">Highlights</h2>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {highlights.map((highlight, index) => (
+                      <div key={index} className="flex items-start gap-3 p-4 bg-muted rounded-lg">
+                        <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>{highlight}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Itinerary */}
-              <div>
-                <h2 className="text-2xl font-heading font-semibold mb-6">Day-by-Day Itinerary</h2>
-                <div className="space-y-6">
-                  {tour.itinerary.map((day) => (
-                    <div key={day.day} className="relative pl-8 pb-6 border-l-2 border-primary/30 last:pb-0">
-                      <div className="absolute left-0 top-0 w-4 h-4 -translate-x-[9px] rounded-full bg-primary" />
-                      <div className="bg-card p-6 rounded-xl shadow-soft">
-                        <span className="text-sm text-primary font-medium">Day {day.day}</span>
-                        <h3 className="text-lg font-heading font-semibold mt-1 mb-2">{day.title}</h3>
-                        <p className="text-muted-foreground text-sm">{day.description}</p>
+              {itinerary.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-heading font-semibold mb-6">Day-by-Day Itinerary</h2>
+                  <div className="space-y-6">
+                    {itinerary.map((day) => (
+                      <div key={day.day} className="relative pl-8 pb-6 border-l-2 border-primary/30 last:pb-0">
+                        <div className="absolute left-0 top-0 w-4 h-4 -translate-x-[9px] rounded-full bg-primary" />
+                        <div className="bg-card p-6 rounded-xl shadow-soft">
+                          <span className="text-sm text-primary font-medium">Day {day.day}</span>
+                          <h3 className="text-lg font-heading font-semibold mt-1 mb-2">{day.title}</h3>
+                          <p className="text-muted-foreground text-sm">{day.description}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Inclusions/Exclusions */}
-              <div className="grid sm:grid-cols-2 gap-8">
-                <div>
-                  <h2 className="text-xl font-heading font-semibold mb-4">What's Included</h2>
-                  <ul className="space-y-3">
-                    {tour.inclusions.map((item, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+              {(inclusions.length > 0 || exclusions.length > 0) && (
+                <div className="grid sm:grid-cols-2 gap-8">
+                  {inclusions.length > 0 && (
+                    <div>
+                      <h2 className="text-xl font-heading font-semibold mb-4">What's Included</h2>
+                      <ul className="space-y-3">
+                        {inclusions.map((item, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                            <span className="text-muted-foreground">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {exclusions.length > 0 && (
+                    <div>
+                      <h2 className="text-xl font-heading font-semibold mb-4">What's Not Included</h2>
+                      <ul className="space-y-3">
+                        {exclusions.map((item, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <X className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
+                            <span className="text-muted-foreground">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <h2 className="text-xl font-heading font-semibold mb-4">What's Not Included</h2>
-                  <ul className="space-y-3">
-                    {tour.exclusions.map((item, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <X className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              )}
 
               {/* Gallery */}
-              {tour.gallery.length > 1 && (
+              {gallery.length > 0 && (
                 <div>
                   <h2 className="text-2xl font-heading font-semibold mb-6">Gallery</h2>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {tour.gallery.map((image, index) => (
+                    {gallery.map((image, index) => (
                       <img
                         key={index}
                         src={image}
@@ -168,7 +194,7 @@ const TourDetail = () => {
                   </Button>
                   <Button asChild variant="whatsapp" size="lg" className="w-full">
                     <a 
-                      href={`https://wa.me/255764422305?text=${whatsappMessage}`}
+                      href={`https://wa.me/255742924355?text=${whatsappMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

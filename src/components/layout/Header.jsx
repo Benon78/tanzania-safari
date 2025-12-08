@@ -29,7 +29,7 @@ export function Header() {
                 className="rounded-xl w-20 object-cover"
               /> */}
             <span className="text-xl md:text-2xl font-heading font-semibold text-primary">
-              Tanzania Safari
+              NEYAH ADVENTURE
             </span>
           </Link>
 
@@ -58,7 +58,7 @@ export function Header() {
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
             >
               <Phone className="h-4 w-4" />
-              <span>+255 764 422 305</span>
+              <span>+255 742 924 355</span>
             </a>
             <Button asChild>
               <Link to="/contact">Plan My Trip</Link>

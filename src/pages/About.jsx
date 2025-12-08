@@ -78,7 +78,7 @@ const About = () => {
               <h2 className="text-3xl font-heading font-semibold mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Tanzania Safari Tours was founded in 2010 by a group of passionate local guides who believed that the best way to experience Tanzania was through the eyes of those who call it home.
+                  Neyah Adventure Tours was founded in 2010 by a group of passionate local guides who believed that the best way to experience Tanzania was through the eyes of those who call it home.
                 </p>
                 <p>
                   What started as a small operation in Dar Es Salaam has grown into one of Tanzania's most trusted tour companies, serving thousands of travelers from around the world while remaining true to our roots.
@@ -136,7 +136,7 @@ const About = () => {
         <div className="container-wide text-center">
           <h2 className="text-3xl font-heading font-semibold mb-4">Meet Our Team</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
-            Our experienced guides and staff are the heart of Tanzania Safari Tours.
+            Our experienced guides and staff are the heart of Neyah Adventure.
           </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">

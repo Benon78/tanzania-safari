@@ -1,79 +1,82 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
-const AuthContext = createContext(null);
+const AuthContext = createContext(undefined);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isCheckingAdmin, setIsCheckingAdmin] = useState(false);
 
-  // -------------------------------------
-  // SIMULATED FRONT-END AUTH (TEMPORARY)
-  // Replace with real backend later
-  // -------------------------------------
+  const checkAdminRole = async (userId) => {
+    setIsCheckingAdmin(true);
+
+    const { data } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId)
+      .eq('role', 'admin')
+      .maybeSingle();
+
+    setIsAdmin(!!data);
+    setIsCheckingAdmin(false);
+  };
+
   useEffect(() => {
-    const savedSession = localStorage.getItem("session");
-    const savedUser = localStorage.getItem("user");
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
 
-    if (savedSession && savedUser) {
-      setSession(JSON.parse(savedSession));
-      const u = JSON.parse(savedUser);
-      setUser(u);
+        if (session?.user) {
+          setTimeout(() => {
+            checkAdminRole(session.user.id);
+          }, 0);
+        } else {
+          setIsAdmin(false);
+          setIsCheckingAdmin(false);
+        }
+      }
+    );
 
-      // Check admin role (temp)
-      setIsAdmin(u.role === "admin");
-    }
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
 
-    setIsLoading(false);
+      if (session?.user) {
+        await checkAdminRole(session.user.id);
+      }
+
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const signIn = async (email, password) => {
-    // TODO: Replace with backend API
-    if (!email || !password) {
-      return { error: new Error("Email and password required") };
-    }
-
-    // Mock user
-    const fakeUser = {
-      id: "123",
-      email,
-      role: email.includes("admin") ? "admin" : "user",
-      fullName: "Temp User",
-    };
-
-    const fakeSession = {
-      access_token: "mock_token_123",
-      user: fakeUser,
-    };
-
-    localStorage.setItem("user", JSON.stringify(fakeUser));
-    localStorage.setItem("session", JSON.stringify(fakeSession));
-
-    setUser(fakeUser);
-    setSession(fakeSession);
-    setIsAdmin(fakeUser.role === "admin");
-
-    return { error: null };
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    return { error: error || null };
   };
 
   const signUp = async (email, password, fullName) => {
-    // TODO: Replace with backend API
-    if (!email || !password || !fullName) {
-      return { error: new Error("All fields are required") };
-    }
+    const redirectUrl = `${window.location.origin}/`;
 
-    // No actual account creation (frontend only)
-    return { error: null };
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: redirectUrl,
+        data: { full_name: fullName }
+      }
+    });
+
+    return { error: error || null };
   };
 
   const signOut = async () => {
-    localStorage.removeItem("user"); 
-    localStorage.removeItem("session");
-
-    setUser(null);
-    setSession(null);
-    setIsAdmin(false);
+    await supabase.auth.signOut();
   };
 
   return (
@@ -82,7 +85,7 @@ export function AuthProvider({ children }) {
         user,
         session,
         isAdmin,
-        isLoading,
+        isLoading: isLoading || isCheckingAdmin,
         signIn,
         signUp,
         signOut
@@ -95,8 +98,8 @@ export function AuthProvider({ children }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 }

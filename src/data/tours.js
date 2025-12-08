@@ -1,28 +1,5 @@
+
 export const tours = [
-  {
-    id: '1',
-    slug: '3-day-mikumi-safari',
-    destinationSlug: 'mikumi',
-    title: '3-Day Mikumi Safari',
-    category: 'safari',
-    duration: '3 Days / 2 Nights',
-    price: 650,
-    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800',
-    shortDescription: 'Experience the wildlife of Mikumi National Park with expert local guides.',
-    highlights: ['Game drives', 'Wildlife photography', 'Local guide', 'Comfortable lodging'],
-    itinerary: [
-      { day: 1, title: 'Arrival & Afternoon Game Drive', description: 'Depart from Dar es Salaam early morning. Arrive at Mikumi and enjoy an afternoon game drive.' },
-      { day: 2, title: 'Full Day Game Drive', description: 'Full day exploring Mikumi with morning and afternoon game drives. Spot elephants, lions, and zebras.' },
-      { day: 3, title: 'Morning Drive & Departure', description: 'Early morning game drive followed by departure back to Dar es Salaam.' },
-    ],
-    inclusions: ['Transport', 'Park fees', 'Accommodation', 'Meals', 'Guide'],
-    exclusions: ['Flights', 'Travel insurance', 'Personal expenses', 'Tips'],
-    gallery: [
-      'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800',
-      'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800',
-      'https://images.unsplash.com/photo-1549366021-9f761d450615?w=800',
-    ],
-  },
   {
     id: '2',
     slug: '5-day-serengeti-adventure',
@@ -47,30 +24,6 @@ export const tours = [
       'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800',
       'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800',
       'https://images.unsplash.com/photo-1549366021-9f761d450615?w=800',
-    ],
-  },
-  {
-    id: '3',
-    slug: 'zanzibar-beach-escape',
-    destinationSlug: 'zanzibar',
-    title: 'Zanzibar Beach Escape',
-    category: 'beach',
-    duration: '4 Days / 3 Nights',
-    price: 750,
-    image: 'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800',
-    shortDescription: 'Relax on pristine beaches and explore the historic Stone Town.',
-    highlights: ['Stone Town tour', 'Spice tour', 'Beach relaxation', 'Snorkeling'],
-    itinerary: [
-      { day: 1, title: 'Arrival in Zanzibar', description: 'Transfer to beach resort. Evening free.' },
-      { day: 2, title: 'Stone Town Tour', description: 'Explore UNESCO World Heritage Stone Town.' },
-      { day: 3, title: 'Spice Tour & Beach', description: 'Morning spice plantation visit, afternoon beach.' },
-      { day: 4, title: 'Departure', description: 'Transfer to airport.' },
-    ],
-    inclusions: ['Airport transfers', 'Beach resort', 'Breakfast', 'Tours mentioned'],
-    exclusions: ['Flights', 'Lunch & dinner', 'Personal expenses'],
-    gallery: [
-      'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800',
-      'https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=800',
     ],
   },
   {
@@ -343,7 +296,7 @@ export const destinations = [
   },
   {
     name: 'Zanzibar',
-    image: 'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800',
+    image: 'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800', 
     description: 'Tropical paradise & spice island',
     slug: 'zanzibar',
   },

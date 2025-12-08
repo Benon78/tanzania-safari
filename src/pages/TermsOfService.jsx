@@ -87,7 +87,7 @@ const TermsOfService = () => {
           <div className="bg-card p-8 rounded-xl shadow-elevated">
             <h2 className="text-2xl font-heading font-semibold mb-4">Limitation of Liability</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Tanzania Tours is not responsible for losses or delays caused by inaccurate information, 
+              Neyah Adventure is not responsible for losses or delays caused by inaccurate information, 
               network issues, or third-party communication problems. 
               We are not liable for injuries or damages during travel except where required by law.
             </p>
