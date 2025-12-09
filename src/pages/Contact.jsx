@@ -7,13 +7,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
 import { Mail, Phone, MapPin, Clock, MessageCircle, Send } from 'lucide-react';
+import { usePageTittle } from '@/hooks/usePageTittle';
 import { sub } from 'date-fns';
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_N33ucUiLDLs_pWEm4ncwDfP4kBFHszX36MBTIaGDqcWYal2gAmQ4y3X_aOaPVc0dVA/exec";
 
 
 const Contact = () => {
- 
+ usePageTittle()
   const [isLoading, setIsLoading] = useState(false);
 
   // -----------------

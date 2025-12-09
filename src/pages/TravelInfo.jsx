@@ -1,5 +1,6 @@
 import { Layout } from '@/components/layout/Layout';
 import { FileText, Heart, Backpack, Sun, Shield } from 'lucide-react';
+import { usePageTittle } from '@/hooks/usePageTittle';
 
 const sections = [
   {
@@ -160,6 +161,8 @@ Some East African Community members and a few other countries don't require visa
 ];
 
 const TravelInfo = () => {
+  usePageTittle()
+
   return (
     <Layout>
       {/* Hero */}

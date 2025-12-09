@@ -9,10 +9,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
+import { usePageTittle } from '@/hooks/usePageTittle';
 import { Search, Eye, MessageCircle } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default function Bookings() {
+  usePageTittle()
   const [bookings, setBookings] = useState([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

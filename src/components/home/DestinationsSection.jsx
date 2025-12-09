@@ -4,8 +4,10 @@ import { useDestinations } from '@/hooks/useDestinations';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '../ui/button';
 
+
 export function DestinationsSection() {
   const { data: destinations, isLoading } = useDestinations();
+
 
   return (
     <section className="section-padding bg-background">
@@ -62,11 +64,11 @@ export function DestinationsSection() {
           )}
         </div>
       </div>
-     {destinations && destinations.length > 0 && (<div className="text-center mt-12">
-            <Button asChild size="lg">
-              <Link to="/destinations">View All Destinations</Link>
-            </Button>
-      </div>)}
+      {destinations && destinations.length > 0 && (<div className="text-center mt-12">
+              <Button asChild size="lg">
+                <Link to="/destinations">View All Destinations</Link>
+              </Button>
+        </div>)}
     </section>
   );
 }

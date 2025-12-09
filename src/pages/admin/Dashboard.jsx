@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { usePageTittle } from '@/hooks/usePageTittle';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookOpen, MapPin, Clock, CheckCircle } from 'lucide-react';
 
 export default function Dashboard() {
+  usePageTittle()
   const [stats, setStats] = useState({
     totalBookings: 0,
     pendingBookings: 0,

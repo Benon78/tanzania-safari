@@ -1,7 +1,9 @@
 import { useRouteError } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { usePageTittle } from '@/hooks/usePageTittle';
 
 const ErrorElement = () => {
+  usePageTittle()
   const error = useRouteError();
   console.error(error);
 

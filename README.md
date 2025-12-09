@@ -13,7 +13,7 @@ A modern, responsive web application to explore **Tanzania safari tours**, desti
 
 ## 🌐 Live Demo
 
-> live demo link (https://local-tour.netlify.app/)
+> live demo link (https://neyah-adventure.netlify.app/)
 
 ![Homepage Screenshot](./public/images//home.png)
 ![Tours Screenshot](./public/images//tours.png)
@@ -23,7 +23,7 @@ A modern, responsive web application to explore **Tanzania safari tours**, desti
 
 ## ✨ Features
 
-- Explore curated **Tanzania safari tours** with itineraries, highlights, and pricing.
+- Explore curated **Neyah Adventure** with itineraries, highlights, and pricing.
 - Discover top **destinations** with full descriptions and stunning images.
 - **Tour detail pages** with image galleries and highlights.
 - Fully **responsive design** for mobile, tablet, and desktop.

@@ -1,6 +1,9 @@
 import { Layout } from "@/components/layout/Layout";
+import { usePageTittle } from '@/hooks/usePageTittle';
 
 const TermsOfService = () => {
+  usePageTittle()
+
   return (
     <Layout>
       {/* Hero */}

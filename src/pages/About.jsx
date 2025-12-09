@@ -1,5 +1,6 @@
 import { Layout } from '@/components/layout/Layout';
 import { Users, Award, Heart, Globe } from 'lucide-react';
+import { usePageTittle } from '@/hooks/usePageTittle';
 
 const stats = [
   { number: '15+', label: 'Years Experience' },
@@ -32,6 +33,7 @@ const values = [
 ];
 
 const About = () => {
+  usePageTittle()
   return (
     <Layout>
       {/* Hero */}

@@ -4,9 +4,11 @@ import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Clock, Check, X, MapPin, MessageCircle, Calendar } from 'lucide-react';
 import { useTour } from '@/hooks/useTours';
+import { usePageTittle } from '@/hooks/usePageTittle';
 import { BookingModal } from '@/components/booking/BookingModal';
 
 const TourDetail = () => {
+  usePageTittle()
   const { slug } = useParams();
   const { data: tour, isLoading } = useTour(slug);
   const [isBookingOpen, setIsBookingOpen] = useState(false);

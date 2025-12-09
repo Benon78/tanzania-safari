@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { TourCard } from '@/components/tours/TourCard';
 import { BookingModal } from '@/components/booking/BookingModal';
 import { useTours } from '@/hooks/useTours';
+import { usePageTittle } from '@/hooks/usePageTittle';
 
 const categories = [
   { id: 'all', name: 'All Tours' },
@@ -15,6 +16,7 @@ const categories = [
 ];
 
 const Tours = () => {
+  usePageTittle()
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedTour, setSelectedTour] = useState(null);
   const { data: tours = [], isLoading } = useTours();

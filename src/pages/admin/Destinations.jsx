@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
+import { usePageTittle } from '@/hooks/usePageTittle';
 import { Plus, Pencil, Trash2, MapPin, Upload, X } from 'lucide-react';
 
 const emptyDestination = {
@@ -23,6 +24,7 @@ const emptyDestination = {
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 
 export default function DestinationsAdmin() {
+  usePageTittle()
   const [destinations, setDestinations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);

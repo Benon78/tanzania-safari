@@ -1,9 +1,11 @@
 import { Layout } from '@/components/layout/Layout';
 import { useDestinations } from '@/hooks/useDestinations';
 import { Skeleton } from '@/components/ui/skeleton';
+import { usePageTittle } from '@/hooks/usePageTittle';
 
 const Destinations = () => {
   const { data: destinations, isLoading } = useDestinations();
+  usePageTittle()
 
   return (
     <Layout>
