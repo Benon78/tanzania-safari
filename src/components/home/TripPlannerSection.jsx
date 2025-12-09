@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from '@/hooks/use-toast';
 import { Send } from 'lucide-react';
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_N33ucUiLDLs_pWEm4ncwDfP4kBFHszX36MBTIaGDqcWYal2gAmQ4y3X_aOaPVc0dVA/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5tr1iKozgbOk1Yy--UKxy-TANOB6ovM7IoT4vsGOsX3wYCoMIj-MCIaMeIHoKptusvQ/exec";
 
 export function TripPlannerSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);

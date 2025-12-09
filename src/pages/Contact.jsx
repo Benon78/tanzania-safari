@@ -10,7 +10,7 @@ import { Mail, Phone, MapPin, Clock, MessageCircle, Send } from 'lucide-react';
 import { usePageTittle } from '@/hooks/usePageTittle';
 import { sub } from 'date-fns';
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_N33ucUiLDLs_pWEm4ncwDfP4kBFHszX36MBTIaGDqcWYal2gAmQ4y3X_aOaPVc0dVA/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5tr1iKozgbOk1Yy--UKxy-TANOB6ovM7IoT4vsGOsX3wYCoMIj-MCIaMeIHoKptusvQ/exec";
 
 
 const Contact = () => {
