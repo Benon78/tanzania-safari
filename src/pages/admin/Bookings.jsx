@@ -12,9 +12,12 @@ import { toast } from '@/hooks/use-toast';
 import { usePageTittle } from '@/hooks/usePageTittle';
 import { Search, Eye, MessageCircle } from 'lucide-react';
 import { format } from 'date-fns';
+import { useSendBookingEmail } from "@/hooks/useSendBookingEmail";
+
 
 export default function Bookings() {
   usePageTittle()
+  const { sendBookingEmail, loading} = useSendBookingEmail();
   const [bookings, setBookings] = useState([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -119,6 +122,31 @@ export default function Bookings() {
     setNotes(booking.notes || '');
     setIsDetailOpen(true);
   };
+
+  const handleSendingEmail = async() =>{
+
+        const payload = {
+              bookingId: selectedBooking.id,
+              customerName: selectedBooking.customer_name,
+              customerEmail: selectedBooking.customer_email,
+              customerPhone: selectedBooking.customer_phone,
+              tourName: selectedBooking.tour_name,
+              packageName: selectedBooking.duration,
+              totalPrice: selectedBooking.total_price,
+              travelDate: format(new Date(selectedBooking.travel_date), 'PPP'),
+              status: selectedBooking.status,      // pending / confirmed / paid / cancelled
+            };
+
+            const res = await sendBookingEmail(payload);
+
+            if (res.success) {
+                  toast({ title: 'Email sent!', description: `Sending Email to ${selectedBooking.customer_email}`});
+                } else {
+                  console.error("Failed:", res.error);
+                  toast({ title: 'Sent Email fail!', description: `Network Error please try again.`});
+            }
+        
+  }
 
   if (isLoading) {
     return (
@@ -300,11 +328,12 @@ export default function Bookings() {
                 </Button>
 
                 <Button
-                  onClick={() => window.location.href = `mailto:${selectedBooking.customer_email}`}
+                  onClick={handleSendingEmail}
+                  disabled={loading}
                   variant="outline"
                   className="flex-1"
                 >
-                  Send Email
+                 {loading ? "Sending..." : "Send Email"}
                 </Button>
               </div>
             </div>

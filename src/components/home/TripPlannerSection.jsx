@@ -6,68 +6,70 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
 import { Send } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5tr1iKozgbOk1Yy--UKxy-TANOB6ovM7IoT4vsGOsX3wYCoMIj-MCIaMeIHoKptusvQ/exec";
 
 export function TripPlannerSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [budget, setBudget] = useState('');
+  const [tourType, setTourType] = useState('');
+  const [travelers, setTravelers] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-     const form = e.target;
-
-    const data = {
-      Name: form.name.value,
-      Email: form.email.value,
-      TourType: form.tourType.value,
-      Budget: form.budget?.value || "",
-      Dates: form.dates.value,
-      Phone: form.phone.value,
-      Travelers: form.travelers?.value || "",
-      Message: form.message.value,
-      TimeStamp: new Date().toLocaleString(),
-      formType: 'trip'
-    };
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const travel_dates = formData.get('dates') || null;
+    const details = formData.get('message') || null;
     
-    // Simulate form submission
-    try {
-      const resp = await fetch(GOOGLE_SCRIPT_URL,{
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams(data).toString(),
+    const { error } = await supabase.from('trip_planning_inquiries').insert({
+      name,
+      email,
+      travel_dates,
+      budget: budget || null,
+      tour_type: tourType || null,
+      travelers: travelers || null,
+      details,
+    });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send inquiry. Please try again.",
       });
-
-      const json = await resp.json()
-
-      if (json.success) {
-          toast({
-            title: "Request Received!",
-            description: "We'll get back to you within 24 hours with a custom itinerary.",
-          });
-        }else {
-        toast({
-          title: "Error",
-          description: "Failed to send message. Try again.",
-          variant: "destructive",
+    } else {
+      // Send email notification
+      try {
+        await supabase.functions.invoke('send-notification', {
+          body: {
+            type: 'trip_planning',
+            name,
+            email,
+            travel_dates,
+            budget: budget || null,
+            tour_type: tourType || null,
+            travelers: travelers || null,
+            details,
+          },
         });
+      } catch (emailError) {
+        console.error('Email notification failed:', emailError);
       }
 
-    } catch (error) {
       toast({
-        title: "Network Error",
-        description: "Unable to reach the server.",
-        variant: "destructive",
+        title: "Request Received!",
+        description: "We'll get back to you within 24 hours with a custom itinerary.",
       });
+      e.target.reset();
+      setBudget('');
+      setTourType('');
+      setTravelers('');
     }
     
     setIsSubmitting(false);
-    // RESET FORM
-    form.reset();
   };
 
   return (
@@ -95,10 +97,10 @@ export function TripPlannerSection() {
                 <Input id="email" name="email" type="email" placeholder="john@example.com" required />
               </div>
 
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number</Label>
                 <Input id="phone" name="phone" type="tel" placeholder="+1 234 567 890" />
-              </div>
+              </div> */}
               
               <div className="space-y-2">
                 <Label htmlFor="dates">Preferred Travel Dates</Label>
@@ -107,7 +109,7 @@ export function TripPlannerSection() {
               
               <div className="space-y-2">
                 <Label htmlFor="budget">Budget (USD)</Label>
-                <Select name="budget">
+                <Select name="budget" value={budget} onValueChange={setBudget}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select budget range" />
                   </SelectTrigger>
@@ -122,7 +124,7 @@ export function TripPlannerSection() {
               
               <div className="space-y-2">
                 <Label htmlFor="tourType">Tour Type</Label>
-                <Select name="tourType">
+                <Select name="tourType" value={tourType} onValueChange={setTourType}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select tour type" />
                   </SelectTrigger>
@@ -139,7 +141,7 @@ export function TripPlannerSection() {
               
               <div className="space-y-2">
                 <Label htmlFor="travelers">Number of Travelers</Label>
-                <Select name="travelers">
+                <Select name="travelers" value={travelers} onValueChange={setTravelers}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select group size" />
                   </SelectTrigger>

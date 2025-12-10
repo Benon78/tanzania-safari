@@ -9,71 +9,72 @@ import { toast } from '@/hooks/use-toast';
 import { Mail, Phone, MapPin, Clock, MessageCircle, Send } from 'lucide-react';
 import { usePageTittle } from '@/hooks/usePageTittle';
 import { sub } from 'date-fns';
-
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5tr1iKozgbOk1Yy--UKxy-TANOB6ovM7IoT4vsGOsX3wYCoMIj-MCIaMeIHoKptusvQ/exec";
+import { supabase } from '@/integrations/supabase/client';
 
 
 const Contact = () => {
  usePageTittle()
-  const [isLoading, setIsLoading] = useState(false);
+   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [subject, setSubject] = useState('');
+  const [travelers, setTravelers] = useState('');
 
-  // -----------------
-  // Handle SUBMIT
-  // -----------------
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
 
-    const form = e.target;
+    const formData = new FormData(e.currentTarget);
 
-    const data = {
-      Name: form.name.value,
-      Email: form.email.value,
-      Phone: form.phone.value,
-      Subject: form.subject?.value || "",
-      Dates: form.dates.value,
-      Travelers: form.travelers?.value || "",
-      Message: form.message.value,
-      TimeStamp: new Date().toLocaleString(),
-      formType: 'inquiry'
-    };
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const phone = formData.get('phone') || null;
+    const travel_dates = formData.get('dates') || null;
+    const message = formData.get('message');
 
-    try {
-      const res = await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams(data).toString(),
-      });
+    const { error } = await supabase.from('contact_submissions').insert({
+      name,
+      email,
+      phone,
+      subject: subject || null,
+      travel_dates,
+      travelers: travelers || null,
+      message,
+    });
 
-      const json = await res.json();
-
-      if (json.success) {
-        toast({
-          title: "Message Sent!",
-          description: "Thank you for contacting us. We'll respond within 24 hours.",
-        }); 
-      } else {
-        toast({
-          title: "Error",
-          description: "Failed to send message. Try again.",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
+    if (error) {
       toast({
-        title: "Network Error",
-        description: "Unable to reach the server.",
-        variant: "destructive",
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+      });
+    } else {
+      // Trigger Supabase Edge Function
+      try {
+        await supabase.functions.invoke('send-notification', {
+          body: {
+            type: 'contact',
+            name,
+            email,
+            phone,
+            subject: subject || null,
+            travel_dates,
+            travelers: travelers || null,
+            message,
+          },
+        });
+      } catch (emailError) {
+        console.error('Email notification failed:', emailError);
+      }
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for contacting us. We'll respond within 24 hours.",
       });
 
+      e.target.reset();
+      setSubject('');
+      setTravelers('');
     }
 
-    setIsLoading(false);
-    // RESET FORM
-    form.reset();
+    setIsSubmitting(false);
   };
 
   return (
@@ -188,7 +189,7 @@ const Contact = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="subject">Subject</Label>
-                      <Select name="subject">
+                      <Select name="subject" value={subject} onValueChange={setSubject}>
                         <SelectTrigger>
                           <SelectValue  placeholder="Select a subject" />
                         </SelectTrigger>
@@ -210,7 +211,7 @@ const Contact = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="travelers">Number of Travelers</Label>
-                      <Select  name="travelers">
+                      <Select  name="travelers" value={travelers} onValueChange={setTravelers}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select group size" />
                         </SelectTrigger>
@@ -236,8 +237,8 @@ const Contact = () => {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" disabled={isLoading} className="w-full sm:w-auto">
-                    {isLoading ? 'Sending...' : <>
+                  <Button type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-auto">
+                    {isSubmitting ? 'Sending...' : <>
                       <Send className="h-4 w-4" /> Send Message
                     </>}
                   </Button>
@@ -258,7 +259,7 @@ const Contact = () => {
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Tanzania Safari Tours Location"
+          title="Nayah Adventure Location"
         />
       </section>
     </Layout>

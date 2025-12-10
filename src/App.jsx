@@ -22,6 +22,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy"
 import ErrorElement from "./pages/ErrorElement";
 
 import Auth from "./pages/Auth";
+import UserAuth from "./pages/UserAuth";
+import MyBookings from "./pages/MyBookings";
 import AdminLayout from "./pages/admin/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import Bookings from "./pages/admin/Bookings";
@@ -47,6 +49,8 @@ const router = createBrowserRouter(createRoutesFromElements(
               <Route path="/auth" element={<Auth />}
                errorElement={<ErrorElement/>}
                />
+               <Route path="/account" element={<UserAuth />}  errorElement={<ErrorElement/>}/>
+              <Route path="/my-bookings" element={<MyBookings />}  errorElement={<ErrorElement/>}/>
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Dashboard />} errorElement={<ErrorElement/>}/>
                 <Route path="bookings" element={<Bookings />} errorElement={<ErrorElement/>}/>

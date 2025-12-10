@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import { CalendarIcon, Users, Minus, Plus, MessageCircle, Send } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { CalendarIcon, Users, Minus, Plus, MessageCircle, Send, User } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,10 +22,13 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { toast } from '@/hooks/use-toast';
+import { usePageTittle } from '@/hooks/usePageTittle';
 import { cn } from '@/lib/utils';
 
 export function BookingModal({ tour, isOpen, onClose }) {
-  const [startDate, setStartDate] = useState(null);
+  usePageTittle()
+  const { user } = useAuth();
+  const [startDate, setStartDate] = useState();
   const [travelers, setTravelers] = useState(2);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -31,6 +36,12 @@ export function BookingModal({ tour, isOpen, onClose }) {
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  // Pre-fill email and name if user is logged in
+  useEffect(() => {
+    if (user?.email && !email) setEmail(user.email);
+    if (user?.user_metadata?.full_name && !name) setName(user.user_metadata.full_name);
+  }, [user]);
 
   const totalPrice = tour.price * travelers;
 
@@ -47,7 +58,7 @@ export function BookingModal({ tour, isOpen, onClose }) {
         description: "Choose your preferred travel date to continue.",
         variant: "destructive",
       });
-      return; 
+      return;
     }
 
     if (!name.trim() || !email.trim()) {
@@ -103,7 +114,7 @@ export function BookingModal({ tour, isOpen, onClose }) {
   };
 
   const resetForm = () => {
-    setStartDate(null);
+    setStartDate(undefined);
     setTravelers(2);
     setName('');
     setEmail('');
@@ -303,14 +314,10 @@ export function BookingModal({ tour, isOpen, onClose }) {
           {/* Submit Buttons */}
           <div className="space-y-3">
             <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? (
-                'Sending Request...'
-              ) : (
-                <>
-                  <Send className="h-4 w-4 mr-2" />
-                  Request Booking
-                </>
-              )}
+              {isSubmitting ? 'Sending Request...' : <>
+                <Send className="h-4 w-4 mr-2" />
+                Request Booking
+              </>}
             </Button>
             <Button 
               type="button" 
@@ -323,6 +330,21 @@ export function BookingModal({ tour, isOpen, onClose }) {
               Book via WhatsApp
             </Button>
           </div>
+
+          {/* Login Prompt */}
+          {!user && (
+            <div className="text-center pt-4 border-t border-border">
+              <p className="text-sm text-muted-foreground mb-2">
+                Want to track your booking status?
+              </p>
+              <Button variant="link" asChild className="p-0 h-auto">
+                <Link to="/account" onClick={onClose}>
+                  <User className="h-4 w-4 mr-1" />
+                  Sign in or create an account
+                </Link>
+              </Button>
+            </div>
+          )}
         </form>
       </DialogContent>
     </Dialog>
