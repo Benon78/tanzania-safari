@@ -1,15 +1,18 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
-import { Send } from 'lucide-react';
+import { Send, User } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 
 
 export function TripPlannerSection() {
+  const { user } = useAuth()
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [budget, setBudget] = useState('');
   const [tourType, setTourType] = useState('');
@@ -84,7 +87,23 @@ export function TripPlannerSection() {
               Tell us about your dream safari and we'll create a personalized itinerary just for you.
             </p>
           </div>
-
+          {!user ? (
+            <div className="bg-card rounded-2xl p-8 shadow-soft text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <User className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-heading font-semibold mb-2">Sign In Required</h3>
+              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                Please sign in or create an account to submit a trip planning request. This helps us provide personalized itineraries.
+              </p>
+              <Button asChild size="lg">
+                <Link to="/account">
+                  <User className="h-4 w-4 mr-2" />
+                  Sign In / Create Account
+                </Link>
+              </Button>
+            </div>
+          ) : (
           <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-soft">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
@@ -179,6 +198,7 @@ export function TripPlannerSection() {
               </Button>
             </div>
           </form>
+          )}
         </div>
       </div>
     </section>

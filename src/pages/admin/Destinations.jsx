@@ -6,10 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
 import { usePageTittle } from '@/hooks/usePageTittle';
 import { Plus, Pencil, Trash2, MapPin, Upload, X } from 'lucide-react';
+import { DESTINATION_REGIONS} from '@/hooks/useDestinations';
 
 const emptyDestination = {
   name: '',
@@ -18,6 +20,7 @@ const emptyDestination = {
   image_url: '',
   highlights: '',
   best_time: '',
+  region: '',
   is_active: true,
 };
 
@@ -80,6 +83,7 @@ export default function DestinationsAdmin() {
       image_url: destination.image_url || '',
       highlights: destination.highlights ? destination.highlights.join(', ') : '',
       best_time: destination.best_time || '',
+       region: destination.region || '',
       is_active: destination.is_active,
     });
     setImagePreview(destination.image_url || null);
@@ -144,6 +148,7 @@ export default function DestinationsAdmin() {
       image_url: formData.image_url || null,
       highlights: highlightsArray.length > 0 ? highlightsArray : null,
       best_time: formData.best_time || null,
+      region: formData.region || null,
       is_active: formData.is_active,
     };
 
@@ -264,6 +269,12 @@ export default function DestinationsAdmin() {
                     alt={destination.name}
                     className="w-full h-32 object-cover rounded-lg"
                   />
+                )}
+
+                {destination.region && (
+                  <span className="inline-block text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                    {destination.region}
+                  </span>
                 )}
 
                 {destination.description && (
@@ -416,13 +427,34 @@ export default function DestinationsAdmin() {
 
             {/* BEST TIME */}
             <div className="space-y-2">
-              <Label>Best Time to Visit</Label>
+              <Label htmlFor="dest-best-time">Best Time to Visit</Label>
               <Input
+              id="dest-best-time"
                 value={formData.best_time}
                 onChange={(e) =>
                   setFormData({ ...formData, best_time: e.target.value })
                 }
+                placeholder="June - October"
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="dest-region">Region</Label>
+              <Select
+                value={formData.region}
+                onValueChange={(value) => setFormData({ ...formData, region: value})}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a region" />
+                </SelectTrigger>
+                <SelectContent>
+                  {DESTINATION_REGIONS.map((region) => (
+                    <SelectItem key={region} value={region}>
+                      {region}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* ACTIVE */}

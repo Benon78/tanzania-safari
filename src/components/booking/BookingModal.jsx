@@ -43,6 +43,36 @@ export function BookingModal({ tour, isOpen, onClose }) {
     if (user?.user_metadata?.full_name && !name) setName(user.user_metadata.full_name);
   }, [user]);
 
+    // Show login prompt if user is not authenticated
+  if (!user) {
+    return (
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="sm:max-w-md">
+          <div className="text-center py-6">
+            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <User className="h-8 w-8 text-primary" />
+            </div>
+            <h3 className="text-xl font-heading font-semibold mb-2">Sign In Required</h3>
+            <p className="text-muted-foreground mb-6">
+              Please sign in or create an account to book this tour. This helps us track your booking and provide better service.
+            </p>
+            <div className="space-y-3">
+              <Button asChild size="lg" className="w-full">
+                <Link to="/account" onClick={onClose}>
+                  <User className="h-4 w-4 mr-2" />
+                  Sign In / Create Account
+                </Link>
+              </Button>
+              <Button onClick={onClose} variant="outline" className="w-full">
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   const totalPrice = tour.price * travelers;
 
   const handleTravelersChange = (delta) => {
@@ -330,21 +360,6 @@ export function BookingModal({ tour, isOpen, onClose }) {
               Book via WhatsApp
             </Button>
           </div>
-
-          {/* Login Prompt */}
-          {!user && (
-            <div className="text-center pt-4 border-t border-border">
-              <p className="text-sm text-muted-foreground mb-2">
-                Want to track your booking status?
-              </p>
-              <Button variant="link" asChild className="p-0 h-auto">
-                <Link to="/account" onClick={onClose}>
-                  <User className="h-4 w-4 mr-1" />
-                  Sign in or create an account
-                </Link>
-              </Button>
-            </div>
-          )}
         </form>
       </DialogContent>
     </Dialog>

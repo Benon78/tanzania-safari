@@ -5,6 +5,7 @@ import { ToursSection } from '@/components/home/ToursSection';
 import { WhyChooseUsSection } from '@/components/home/WhyChooseUsSection';
 import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { TripPlannerSection } from '@/components/home/TripPlannerSection';
+import { NewsletterSection } from '@/components/home/NewsletterSection';
 
 const Index = () => {
   return (
@@ -15,6 +16,7 @@ const Index = () => {
       <WhyChooseUsSection />
       <TestimonialsSection />
       <TripPlannerSection />
+      <NewsletterSection />
     </Layout>
   );
 };

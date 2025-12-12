@@ -27,27 +27,6 @@ export const tours = [
     ],
   },
   {
-    id: '4',
-    slug: 'kilimanjaro-day-hike',
-    destinationSlug: 'kilimanjaro',
-    title: 'Kilimanjaro Day Hike',
-    category: 'adventure',
-    duration: '1 Day',
-    price: 180,
-    image: 'https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?w=800',
-    shortDescription: 'Hike to the first camp of Mount Kilimanjaro for stunning views.',
-    highlights: ['Mandara Hut', 'Rainforest trek', 'Mountain views', 'Local guide'],
-    itinerary: [
-      { day: 1, title: 'Marangu Gate to Mandara Hut', description: 'Start at Marangu Gate, hike through rainforest to Mandara Hut at 2,700m.' },
-    ],
-    inclusions: ['Transport', 'Park fees', 'Guide & porter', 'Lunch'],
-    exclusions: ['Hiking gear', 'Tips', 'Travel insurance'],
-    gallery: [
-      'https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?w=800',
-      'https://images.unsplash.com/photo-1650668302197-7f556c34cb91?w=800',
-    ],
-  },
-  {
     id: '5',
     slug: 'maasai-village-experience',
     destinationSlug: 'tarangire',
@@ -65,27 +44,6 @@ export const tours = [
     exclusions: ['Souvenirs', 'Tips'],
     gallery: [
       'https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?w=800',
-    ],
-  },
-  {
-    id: '6',
-    slug: 'ngorongoro-crater-tour',
-    destinationSlug: 'ngorongoro',
-    title: 'Ngorongoro Crater Day Trip',
-    category: 'daytrip',
-    duration: '1 Day',
-    price: 350,
-    image: 'https://images.unsplash.com/photo-1549366021-9f761d450615?w=800',
-    shortDescription: "Descend into the world's largest intact volcanic caldera.",
-    highlights: ['Crater descent', 'Big Five chance', 'Picnic lunch', 'Maasai viewpoint'],
-    itinerary: [
-      { day: 1, title: 'Ngorongoro Crater Exploration', description: 'Early departure, descend into the crater for a full day of wildlife viewing. Spot lions, rhinos, and flamingos.' },
-    ],
-    inclusions: ['Transport', 'Park fees', 'Guide', 'Picnic lunch'],
-    exclusions: ['Drinks', 'Tips', 'Travel insurance'],
-    gallery: [
-      'https://images.unsplash.com/photo-1549366021-9f761d450615?w=800',
-      'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800',
     ],
   },
   {

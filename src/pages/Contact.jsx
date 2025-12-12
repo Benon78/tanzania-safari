@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,14 +7,16 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
-import { Mail, Phone, MapPin, Clock, MessageCircle, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, MessageCircle, Send, User} from 'lucide-react';
 import { usePageTittle } from '@/hooks/usePageTittle';
 import { sub } from 'date-fns';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 
 
 const Contact = () => {
  usePageTittle()
+ const { user } = useAuth()
    const [isSubmitting, setIsSubmitting] = useState(false);
   const [subject, setSubject] = useState('');
   const [travelers, setTravelers] = useState('');
@@ -170,6 +173,23 @@ const Contact = () => {
               <div className="bg-card rounded-2xl p-8 shadow-elevated">
                 <h2 className="text-2xl font-heading font-semibold mb-6">Send Us a Message</h2>
 
+                {!user ? (
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <User className="h-8 w-8 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-heading font-semibold mb-2">Sign In Required</h3>
+                    <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                      Please sign in or create an account to send us a message. This helps us respond to you better.
+                    </p>
+                    <Button asChild size="lg">
+                      <Link to="/account">
+                        <User className="h-4 w-4 mr-2" />
+                        Sign In / Create Account
+                      </Link>
+                    </Button>
+                  </div>
+                ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
@@ -243,6 +263,7 @@ const Contact = () => {
                     </>}
                   </Button>
                 </form>
+                )}
               </div>
             </div>
           </div>

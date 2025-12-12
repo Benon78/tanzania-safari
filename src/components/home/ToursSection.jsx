@@ -7,7 +7,7 @@ import { BookingModal } from '@/components/booking/BookingModal';
 
 export function ToursSection() {
   const { data: tours = [], isLoading } = useTours();
-  const popularTours = tours.slice(0, 6);
+  const popularTours = tours.slice(0, 3);
   const [selectedTour, setSelectedTour] = useState(null);
 
   return (

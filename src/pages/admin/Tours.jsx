@@ -10,8 +10,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
 import { usePageTittle } from '@/hooks/usePageTittle';
-import { Plus, Pencil, Trash2, Upload, X, Eye, EyeOff } from 'lucide-react';
+import { Plus, Pencil, Trash2, Upload, X, Eye, EyeOff, Mail  } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const categories = [
   { id: 'safari', name: 'Safari Tours' },
@@ -38,6 +39,7 @@ export default function ToursAdmin() {
   const [isSaving, setIsSaving] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [sendNewsletter, setSendNewsletter] = useState(false);
   const [galleryFiles, setGalleryFiles] = useState([]);
   const [galleryPreviews, setGalleryPreviews] = useState([]);
 
@@ -100,6 +102,7 @@ export default function ToursAdmin() {
     setImagePreview(null);
     setGalleryFiles([]);
     setGalleryPreviews([]);
+    setSendNewsletter(false);
     setIsDialogOpen(true);
   };
 
@@ -122,6 +125,7 @@ export default function ToursAdmin() {
     setImagePreview(tour.image_url || null);
     setGalleryFiles([]);
     setGalleryPreviews(tour.gallery || []);
+    setSendNewsletter(false);
     setIsDialogOpen(true);
   };
 
@@ -242,6 +246,7 @@ export default function ToursAdmin() {
 
     try {
       let error = null;
+      const isCreating = !editingTour;
       if (editingTour) {
         const res = await supabase.from('tours').update(tourData).eq('id', editingTour.id);
         error = res.error;
@@ -250,14 +255,36 @@ export default function ToursAdmin() {
         error = res.error;
       }
 
-      setIsSaving(false);
       if (error) {
         toast({ title: 'Error saving tour', description: error.message, variant: 'destructive' });
-      } else {
-        toast({ title: editingTour ? 'Tour updated' : 'Tour created' });
-        setIsDialogOpen(false);
-        fetchTours();
+        setIsSaving(false);
+        return
       }
+
+      // Send newsletter notification for new active tours
+    if (isCreating && formData.is_active && sendNewsletter) {
+      try {
+        await supabase.functions.invoke('send-newsletter', {
+          body: {
+            tourTitle: tourData.title,
+            tourSlug: tourData.slug,
+            tourDescription: tourData.short_description || 'Check out our exciting new tour!',
+            tourPrice: tourData.price,
+            tourDuration: tourData.duration,
+            tourImage: tourData.image_url,
+          },
+        });
+        toast({ title: 'Newsletter sent to subscribers!' });
+      } catch (newsletterError) {
+        console.error('Newsletter notification failed:', newsletterError);
+      }
+    }
+
+    setIsSaving(false);
+    toast({ title: editingTour ? 'Tour updated' : 'Tour created' });
+    setIsDialogOpen(false);
+    fetchTours();
+
     } catch (err) {
       setIsSaving(false);
       toast({ title: 'Error saving tour', description: err.message || String(err), variant: 'destructive' });
@@ -473,9 +500,28 @@ export default function ToursAdmin() {
 
             {/* Active Switch */}
             <div className="flex items-center space-x-2">
-              <Switch checked={formData.is_active} onCheckedChange={(val) => setFormData({ ...formData, is_active: val })} />
-              <Label>Active</Label>
+              <Switch id='is_active' checked={formData.is_active} onCheckedChange={(val) => setFormData({ ...formData, is_active: val })} />
+              <Label htmlFor="is_active">Active (visible on website)</Label>
             </div>
+
+            {!editingTour && formData.is_active && (
+              <div className="flex items-center gap-2 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                <Checkbox
+                  id="send_newsletter"
+                  checked={sendNewsletter}
+                  onCheckedChange={(checked) => setSendNewsletter(checked === true)}
+                />
+                <div className="flex-1">
+                  <Label htmlFor="send_newsletter" className="flex items-center gap-2 cursor-pointer">
+                    <Mail className="h-4 w-4 text-primary" />
+                    Notify newsletter subscribers
+                  </Label>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Send an email to all subscribers about this new tour
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="flex justify-end space-x-2 pt-4">
               <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
