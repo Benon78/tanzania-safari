@@ -9,7 +9,7 @@ import { usePageTittle } from '@/hooks/usePageTittle';
 const categories = [
   { id: 'all', name: 'All Tours' },
   { id: 'safari', name: 'Safari Tours' },
-  { id: 'zanzibar', name: 'Zanzibar & Beach' },
+  { id: 'beach', name: 'Zanzibar & Beach' },
   { id: 'day-trip', name: 'Day Trips' },
   { id: 'cultural', name: 'Cultural Tours' },
   { id: 'adventure', name: 'Adventure & Trekking' },
