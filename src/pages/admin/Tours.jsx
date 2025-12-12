@@ -16,7 +16,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 const categories = [
   { id: 'safari', name: 'Safari Tours' },
-  { id: 'zanzibar', name: 'Zanzibar & Beach' },
+  { id: 'beach', name: 'Zanzibar & Beach' },
   { id: 'day-trip', name: 'Day Trips' },
   { id: 'cultural', name: 'Cultural Tours' },
   { id: 'adventure', name: 'Adventure & Trekking' },
@@ -24,9 +24,9 @@ const categories = [
 
 const categoryColors = {
   safari: "bg-primary text-primary-foreground",
-  zanzibar: "bg-blue-500 text-white",
+  beach: "bg-blue-500 text-white",
   "day-trip": "bg-amber-500 text-white",
-  cultural: "bg-purple-500 text-white",
+  cultural: "bg-purple-500 text-white", 
   adventure: "bg-orange-500 text-white",
 };
 

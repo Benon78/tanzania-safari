@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 const categoryColors = {
   safari: "bg-primary text-primary-foreground",
   beach: "bg-blue-500 text-white",
-  daytrip: "bg-amber-500 text-white",
+  'day-trip': "bg-amber-500 text-white",
   cultural: "bg-purple-500 text-white",
   adventure: "bg-orange-500 text-white",
 };
@@ -14,7 +14,7 @@ const categoryColors = {
 const categoryLabels = {
   safari: "Safari Tours",
   beach: "Zanzibar & Beach",
-  daytrip: "Day Trips",
+  'day-trip': "Day Trips",
   cultural: "Cultural Tours",
   adventure: "Adventure & Trekking",
 };
